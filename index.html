@@ -1,0 +1,1751 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI重塑超市行业 | 影响分析与应对策略</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/v4-shims.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#00D2FF',
+                        secondary: '#3A0CA3',
+                        accent: '#F72585',
+                        success: '#4CC9F0',
+                        danger: '#F72585',
+                        dark: '#1A1A2E',
+                        darker: '#16213E',
+                        light: '#F8F9FA'
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                        orbitron: ['Orbitron', 'monospace'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-in-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+                        'gradient-shift': 'gradientShift 3s ease-in-out infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .gradient-text {
+                background: linear-gradient(135deg, #00D2FF, #3A0CA3, #F72585);
+                background-size: 200% 200%;
+                animation: gradientShift 3s ease-in-out infinite;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+            .glass-effect {
+                backdrop-filter: blur(15px);
+                background: rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            }
+            .neon-glow {
+                box-shadow: 0 0 20px rgba(0, 210, 255, 0.5);
+            }
+            .card-hover {
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .card-hover:hover {
+                transform: translateY(-10px) scale(1.02);
+                box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            }
+            .tech-grid {
+                background-image: 
+                    linear-gradient(rgba(0, 210, 255, 0.1) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0, 210, 255, 0.1) 1px, transparent 1px);
+                background-size: 20px 20px;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 210, 255, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(0, 210, 255, 0.6); }
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .section-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .section-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .nav-scrolled {
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        
+        .modal-backdrop {
+            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.7);
+        }
+        
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #1A1A2E;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #00D2FF, #3A0CA3);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #00B8E6, #2D0A8A);
+        }
+    </style>
+</head>
+<body class="font-inter bg-gradient-to-br from-dark via-darker to-dark min-h-screen text-white tech-grid">
+    <!-- 导航栏 -->
+    <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 py-4">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center animate-pulse-glow">
+                    <i class="fa fa-bullseye text-white text-xl"></i>
+                </div>
+                <span class="text-xl font-bold gradient-text">AI超市影响分析</span>
+            </div>
+            
+            <div class="hidden md:flex space-x-8">
+                <a href="#overview" class="text-gray-300 hover:text-primary transition-colors duration-300">概述</a>
+                <a href="#supermarket-impact" class="text-gray-300 hover:text-primary transition-colors duration-300">超市影响</a>
+                <a href="#executive-impact" class="text-gray-300 hover:text-primary transition-colors duration-300">高管影响</a>
+                <a href="#cases" class="text-gray-300 hover:text-primary transition-colors duration-300">前沿案例</a>
+            </div>
+            
+            <button class="md:hidden text-gray-300" id="mobile-menu-btn">
+                <i class="fa fa-bars text-xl"></i>
+            </button>
+        </div>
+        
+        <!-- 移动端菜单 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-dark/95 backdrop-blur-lg shadow-lg absolute w-full border-t border-gray-700">
+            <div class="container mx-auto px-6 py-4 flex flex-col space-y-4">
+                <a href="#overview" class="text-gray-300 hover:text-primary transition-colors py-2">概述</a>
+                <a href="#supermarket-impact" class="text-gray-300 hover:text-primary transition-colors py-2">超市影响</a>
+                <a href="#executive-impact" class="text-gray-300 hover:text-primary transition-colors py-2">高管影响</a>
+                <a href="#cases" class="text-gray-300 hover:text-primary transition-colors py-2">前沿案例</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 英雄区域 -->
+    <section class="pt-32 pb-20 px-6 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10"></div>
+        <div class="container mx-auto text-center relative z-10">
+            <div class="animate-fade-in">
+                <h1 class="text-[clamp(2.5rem,5vw,4.5rem)] font-bold mb-6">
+                    <span class="gradient-text">AI如何重塑超市行业</span>
+                </h1>
+                <p class="text-[clamp(1.1rem,2vw,1.3rem)] text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+                    深度解析人工智能对超市运营和高管决策的双重影响，提供基于真实数据的应对策略
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button onclick="openModal('supermarketModal')" 
+                            class="bg-gradient-to-r from-primary to-secondary text-white px-10 py-4 rounded-xl font-semibold hover:shadow-2xl hover:shadow-primary/50 transition-all duration-300 transform hover:scale-105">
+                        <i class="fa fa-shopping-cart mr-2"></i>
+                        探索超市影响
+                    </button>
+                    <button onclick="openModal('executiveModal')" 
+                            class="border-2 border-primary text-primary px-10 py-4 rounded-xl font-semibold hover:bg-primary/10 transition-all duration-300 transform hover:scale-105">
+                        <i class="fa fa-user-tie mr-2"></i>
+                        了解高管影响
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 数据概览卡片 -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-16 animate-slide-up">
+                <div class="glass-effect rounded-2xl p-6 card-hover">
+                    <div class="text-4xl font-bold text-primary mb-2">40%</div>
+                    <div class="text-gray-300">收银效率提升</div>
+                    <div class="text-xs text-gray-500 mt-1">自助收银vs人工收银</div>
+                </div>
+                <div class="glass-effect rounded-2xl p-6 card-hover">
+                    <div class="text-4xl font-bold text-success mb-2">30%</div>
+                    <div class="text-gray-300">库存周转率提升</div>
+                    <div class="text-xs text-gray-500 mt-1">AI智能补货系统</div>
+                </div>
+                <div class="glass-effect rounded-2xl p-6 card-hover">
+                    <div class="text-4xl font-bold text-accent mb-2">8.3%→0.4%</div>
+                    <div class="text-gray-300">盗损率降低</div>
+                    <div class="text-xs text-gray-500 mt-1">AI防损系统效果</div>
+                </div>
+                <div class="glass-effect rounded-2xl p-6 card-hover">
+                    <div class="text-4xl font-bold text-secondary mb-2">31%</div>
+                    <div class="text-gray-300">客单价提升</div>
+                    <div class="text-xs text-gray-500 mt-1">个性化推荐效果</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 装饰性元素 -->
+        <div class="absolute top-20 left-10 w-20 h-20 bg-primary/20 rounded-full animate-float"></div>
+        <div class="absolute bottom-20 right-10 w-32 h-32 bg-secondary/20 rounded-full animate-float" style="animation-delay: 1s;"></div>
+        <div class="absolute top-1/2 left-1/4 w-16 h-16 bg-accent/20 rounded-full animate-float" style="animation-delay: 2s;"></div>
+    </section>
+
+    <!-- 图片展示区域 -->
+    <section class="py-20 px-6 bg-gradient-to-r from-dark/50 to-darker/50">
+        <div class="container mx-auto section-reveal">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(2rem,4vw,3rem)] font-bold mb-4 gradient-text">AI超市应用场景</h2>
+                <p class="text-gray-300 text-lg max-w-2xl mx-auto">
+                    探索人工智能在超市行业的实际应用场景和技术实现
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-dark/50 border border-gray-700 rounded-2xl overflow-hidden shadow-lg card-hover">
+                    <img src="https://aka.doubaocdn.com/s/V3VU1vz3La" alt="未来科技感超市" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">智能超市入口</h3>
+                        <p class="text-gray-300">配备自助收银机、智能购物车和AI显示屏的现代化超市入口</p>
+                        <button onclick="openModal('techModal')" class="mt-4 text-primary hover:text-primary/80 transition-colors">
+                            了解更多 <i class="fa fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="bg-dark/50 border border-gray-700 rounded-2xl overflow-hidden shadow-lg card-hover">
+                    <img src="https://aka.doubaocdn.com/s/OcpU1vz3Li" alt="AI智能收银系统" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">AI智能收银系统</h3>
+                        <p class="text-gray-300">支持商品识别、多种支付方式的智能收银终端</p>
+                        <button onclick="openModal('checkoutModal')" class="mt-4 text-primary hover:text-primary/80 transition-colors">
+                            了解更多 <i class="fa fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="bg-dark/50 border border-gray-700 rounded-2xl overflow-hidden shadow-lg card-hover">
+                    <img src="https://aka.doubaocdn.com/s/IU9v1vz3Lb" alt="AI数据分析" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">AI数据分析平台</h3>
+                        <p class="text-gray-300">管理人员使用平板电脑查看实时销售数据和分析报表</p>
+                        <button onclick="openModal('dataModal')" class="mt-4 text-primary hover:text-primary/80 transition-colors">
+                            了解更多 <i class="fa fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="bg-dark/50 border border-gray-700 rounded-2xl overflow-hidden shadow-lg card-hover">
+                    <img src="https://aka.doubaocdn.com/s/2SEf1vz3Li" alt="智能货架系统" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">智能货架系统</h3>
+                        <p class="text-gray-300">配备电子价签和传感器的智能货架，实现商品智能管理</p>
+                        <button onclick="openModal('shelfModal')" class="mt-4 text-primary hover:text-primary/80 transition-colors">
+                            了解更多 <i class="fa fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="bg-dark/50 border border-gray-700 rounded-2xl overflow-hidden shadow-lg card-hover">
+                    <img src="https://aka.doubaocdn.com/s/4tWs1vz3Li" alt="AI防损监控系统" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">AI防损监控系统</h3>
+                        <p class="text-gray-300">实时监控异常行为，事前预防代替事后追溯的智能安防系统</p>
+                        <button onclick="openModal('securityModal')" class="mt-4 text-primary hover:text-primary/80 transition-colors">
+                            了解更多 <i class="fa fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="bg-dark/50 border border-gray-700 rounded-2xl overflow-hidden shadow-lg card-hover">
+                    <img src="https://aka.doubaocdn.com/s/lZtz1vz3Lj" alt="未来购物体验" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">未来购物体验</h3>
+                        <p class="text-gray-300">顾客使用智能设备购物，享受人机交互的科技感购物体验</p>
+                        <button onclick="openModal('futureModal')" class="mt-4 text-primary hover:text-primary/80 transition-colors">
+                            了解更多 <i class="fa fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 概述部分 -->
+    <section id="overview" class="py-20 px-6">
+        <div class="container mx-auto section-reveal">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(2rem,4vw,3rem)] font-bold mb-4 gradient-text">AI在超市行业的发展现状</h2>
+                <p class="text-gray-300 text-lg max-w-2xl mx-auto">
+                    人工智能技术正在深刻改变传统超市的运营模式，从前端收银到后端管理，从库存优化到客户服务
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 class="text-2xl font-bold mb-6 text-white">AI技术在超市的主要应用场景</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-4 p-4 bg-dark/50 border border-gray-700 rounded-xl hover:border-primary/50 transition-colors">
+                            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fa fa-cash-register text-primary text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-1">智能收银系统</h4>
+                                <p class="text-gray-400">自助收银、刷脸支付、商品识别技术</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4 p-4 bg-dark/50 border border-gray-700 rounded-xl hover:border-primary/50 transition-colors">
+                            <div class="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fa fa-eye text-secondary text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-1">AI防损系统</h4>
+                                <p class="text-gray-400">视频分析、行为识别、盗损预防</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4 p-4 bg-dark/50 border border-gray-700 rounded-xl hover:border-primary/50 transition-colors">
+                            <div class="w-12 h-12 bg-success/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fa fa-bullseye text-success text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-1">智能库存管理</h4>
+                                <p class="text-gray-400">需求预测、自动补货、库存优化</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4 p-4 bg-dark/50 border border-gray-700 rounded-xl hover:border-primary/50 transition-colors">
+                            <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fa fa-users text-accent text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-1">个性化营销</h4>
+                                <p class="text-gray-400">客户画像、精准推荐、促销优化</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-dark/50 border border-gray-700 rounded-2xl p-8 shadow-lg">
+                    <h3 class="text-xl font-bold mb-6 text-center">AI应用渗透率</h3>
+                    <canvas id="penetrationChart" width="400" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 前沿案例 -->
+    <section id="cases" class="py-20 px-6 bg-gradient-to-r from-dark/50 to-darker/50">
+        <div class="container mx-auto">
+            <div class="text-center mb-16 section-reveal">
+                <h2 class="text-[clamp(2rem,4vw,3rem)] font-bold mb-4 gradient-text">国内外前沿案例</h2>
+                <p class="text-gray-300 text-lg max-w-2xl mx-auto">
+                    来自全球领先企业的最新AI应用实践和效果数据
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 section-reveal">
+                <!-- 沃尔玛案例 -->
+                <div class="bg-dark/50 border border-gray-700 rounded-2xl overflow-hidden shadow-lg card-hover">
+                    <div class="h-48 bg-gradient-to-r from-primary to-secondary flex items-center justify-center">
+                        <i class="fa fa-shopping-cart text-white text-6xl"></i>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-xl font-bold mb-4">沃尔玛×谷歌Gemini</h3>
+                        <p class="text-gray-300 mb-6">
+                            零售巨头沃尔玛与谷歌母公司Alphabet达成重磅合作，在Gemini大模型平台推出AI购物助手。
+                        </p>
+                        <button onclick="openModal('walmartModal')" class="w-full bg-primary/10 hover:bg-primary/20 text-primary py-3 rounded-xl transition-colors">
+                            查看详细案例
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 上海浦东机器人店 -->
+                <div class="bg-dark/50 border border-gray-700 rounded-2xl overflow-hidden shadow-lg card-hover">
+                    <div class="h-48 bg-gradient-to-r from-success to-primary flex items-center justify-center">
+                        <i class="fa fa-bullseye text-white text-6xl"></i>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-xl font-bold mb-4">上海浦东：Galbot Shop</h3>
+                        <p class="text-gray-300 mb-6">
+                            由具身人工智能驱动的全自主机器人零售店，店内机器人可独立完成全流程服务。
+                        </p>
+                        <button onclick="openModal('galbotModal')" class="w-full bg-primary/10 hover:bg-primary/20 text-primary py-3 rounded-xl transition-colors">
+                            查看详细案例
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 新加坡智能超市 -->
+                <div class="bg-dark/50 border border-gray-700 rounded-2xl overflow-hidden shadow-lg card-hover">
+                    <div class="h-48 bg-gradient-to-r from-secondary to-accent flex items-center justify-center">
+                        <i class="fa fa-map-marker text-white text-6xl"></i>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-xl font-bold mb-4">新加坡榜鹅智能超市</h3>
+                        <p class="text-gray-300 mb-6">
+                            新加坡最先进的超市，配备智能购物车和自动识别系统，实现实时导航和个性化推荐。
+                        </p>
+                        <button onclick="openModal('singaporeModal')" class="w-full bg-primary/10 hover:bg-primary/20 text-primary py-3 rounded-xl transition-colors">
+                            查看详细案例
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 未来展望 -->
+    <section class="py-20 px-6">
+        <div class="container mx-auto text-center section-reveal">
+            <h2 class="text-[clamp(2rem,4vw,3rem)] font-bold mb-6 gradient-text">未来发展趋势</h2>
+            <div class="max-w-4xl mx-auto">
+                <p class="text-lg text-gray-300 mb-8 leading-relaxed">
+                    人工智能技术正在深刻改变超市行业的运营模式和高管的工作方式。虽然AI带来了显著的效率提升和成本优化，但也带来了隐私安全、技术可靠性和业务模式等方面的挑战。
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+                    <div class="bg-dark/50 border border-gray-700 rounded-xl p-6 card-hover">
+                        <div class="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+                            <i class="fa fa-bullseye text-primary text-2xl"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-3">AI技术持续进化</h4>
+                        <p class="text-gray-300">
+                            更精准的预测模型、更智能的决策支持系统，具身智能机器人将实现更自然的人机交互
+                        </p>
+                    </div>
+                    
+                    <div class="bg-dark/50 border border-gray-700 rounded-xl p-6 card-hover">
+                        <div class="w-16 h-16 bg-secondary/10 rounded-xl flex items-center justify-center mb-6">
+                            <i class="fa fa-handshake-o text-secondary text-2xl"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-3">人机协同成为主流</h4>
+                        <p class="text-gray-300">
+                            AI与人类优势互补，形成新的工作模式，员工将从重复性工作转向更有创造性的任务
+                        </p>
+                    </div>
+                    
+                    <div class="bg-dark/50 border border-gray-700 rounded-xl p-6 card-hover">
+                        <div class="w-16 h-16 bg-accent/10 rounded-xl flex items-center justify-center mb-6">
+                            <i class="fa fa-shield text-accent text-2xl"></i>
+                        </div>
+                        <h4 class="text-xl font-bold mb-3">监管体系不断完善</h4>
+                        <p class="text-gray-300">
+                            更严格的数据安全和隐私保护要求，AI伦理和治理将成为企业合规的重要组成部分
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-darker py-12 px-6 border-t border-gray-700">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center animate-pulse-glow">
+                            <i class="fa fa-bullseye text-white text-xl"></i>
+                        </div>
+                        <span class="text-xl font-bold gradient-text">AI超市影响分析</span>
+                    </div>
+                    <p class="text-gray-400">
+                        深入分析AI对超市行业的双重影响，提供基于真实数据的应对策略
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">快速导航</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#overview" class="hover:text-primary transition-colors">概述</a></li>
+                        <li><a href="#supermarket-impact" class="hover:text-primary transition-colors">超市影响</a></li>
+                        <li><a href="#executive-impact" class="hover:text-primary transition-colors">高管影响</a></li>
+                        <li><a href="#cases" class="hover:text-primary transition-colors">前沿案例</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">数据来源</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>• 沃尔玛、亚马逊官方数据</li>
+                        <li>• 物美、永辉超市财报</li>
+                        <li>• 深象智能、多点数智案例报告</li>
+                        <li>• CCF零售业风险管理年会</li>
+                        <li>• McKinsey零售行业研究</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2026 AI超市影响分析报告. 基于真实行业数据和全球前沿案例分析</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 模态框 -->
+    <!-- 超市影响模态框 -->
+    <div id="supermarketModal" class="fixed inset-0 z-50 hidden modal-backdrop">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-dark border border-gray-700 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="p-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-3xl font-bold gradient-text">AI对超市的双重影响</h2>
+                        <button onclick="closeModal('supermarketModal')" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-times text-2xl"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-8">
+                        <!-- 积极影响 -->
+                        <div>
+                            <h3 class="text-2xl font-bold text-success mb-6 flex items-center">
+                                <i class="fa fa-arrow-up mr-3"></i>
+                                积极影响
+                            </h3>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <div class="w-16 h-16 bg-success/10 rounded-xl flex items-center justify-center mb-4">
+                                        <i class="fa fa-tachometer text-success text-2xl"></i>
+                                    </div>
+                                    <h4 class="text-xl font-bold mb-3">运营效率大幅提升</h4>
+                                    <ul class="space-y-2 text-gray-300">
+                                        <li class="flex items-start">
+                                            <i class="fa fa-check-circle text-success mt-1 mr-2"></i>
+                                            <span>自助收银效率提升40%，节省30%人力成本</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fa fa-check-circle text-success mt-1 mr-2"></i>
+                                            <span>库存周转率提升30%，释放大量沉淀资金</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fa fa-check-circle text-success mt-1 mr-2"></i>
+                                            <span>缺货率降低18%，直接转化为销售增长</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <div class="w-16 h-16 bg-success/10 rounded-xl flex items-center justify-center mb-4">
+                                        <i class="fa fa-shield text-success text-2xl"></i>
+                                    </div>
+                                    <h4 class="text-xl font-bold mb-3">损失控制显著改善</h4>
+                                    <ul class="space-y-2 text-gray-300">
+                                        <li class="flex items-start">
+                                            <i class="fa fa-check-circle text-success mt-1 mr-2"></i>
+                                            <span>AI防损系统将盗损率从8.3%降至0.4%</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fa fa-check-circle text-success mt-1 mr-2"></i>
+                                            <span>实时监控异常行为，事前预防代替事后追溯</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fa fa-check-circle text-success mt-1 mr-2"></i>
+                                            <span>自助收银防损技术准确率达95%以上</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <div class="w-16 h-16 bg-success/10 rounded-xl flex items-center justify-center mb-4">
+                                        <i class="fa fa-line-chart text-success text-2xl"></i>
+                                    </div>
+                                    <h4 class="text-xl font-bold mb-3">销售业绩持续增长</h4>
+                                    <ul class="space-y-2 text-gray-300">
+                                        <li class="flex items-start">
+                                            <i class="fa fa-check-circle text-success mt-1 mr-2"></i>
+                                            <span>客单价提升31%，复购率提升26%</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fa fa-check-circle text-success mt-1 mr-2"></i>
+                                            <span>AI选品系统紧跟消费趋势，补货准确率95%</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fa fa-check-circle text-success mt-1 mr-2"></i>
+                                            <span>个性化营销让组合优惠券复购率提升12%</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 消极影响 -->
+                        <div>
+                            <h3 class="text-2xl font-bold text-danger mb-6 flex items-center">
+                                <i class="fa fa-arrow-down mr-3"></i>
+                                消极影响
+                            </h3>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <div class="w-16 h-16 bg-danger/10 rounded-xl flex items-center justify-center mb-4">
+                                        <i class="fa fa-user-secret text-danger text-2xl"></i>
+                                    </div>
+                                    <h4 class="text-xl font-bold mb-3">隐私与数据安全风险</h4>
+                                    <ul class="space-y-2 text-gray-300">
+                                        <li class="flex items-start">
+                                            <i class="fa fa-exclamation-triangle text-danger mt-1 mr-2"></i>
+                                            <span>过度采集人脸数据引发隐私担忧</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fa fa-exclamation-triangle text-danger mt-1 mr-2"></i>
+                                            <span>2023年零售数据泄露事件影响1亿+用户</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fa fa-exclamation-triangle text-danger mt-1 mr-2"></i>
+                                            <span>某品牌因违规采集被罚款2000万元</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <div class="w-16 h-16 bg-danger/10 rounded-xl flex items-center justify-center mb-4">
+                                        <i class="fa fa-bullseye text-danger text-2xl"></i>
+                                    </div>
+                                    <h4 class="text-xl font-bold mb-3">技术可靠性问题</h4>
+                                    <ul class="space-y-2 text-gray-300">
+                                        <li class="flex items-start">
+                                            <i class="fa fa-exclamation-triangle text-danger mt-1 mr-2"></i>
+                                            <span>AI防损系统误判影响顾客体验</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fa fa-exclamation-triangle text-danger mt-1 mr-2"></i>
+                                            <span>系统故障可能导致交易错误或顾客投诉</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fa fa-exclamation-triangle text-danger mt-1 mr-2"></i>
+                                            <span>过度依赖历史数据，缺乏对突发情况的应对</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <div class="w-16 h-16 bg-danger/10 rounded-xl flex items-center justify-center mb-4">
+                                        <i class="fa fa-ban text-danger text-2xl"></i>
+                                    </div>
+                                    <h4 class="text-xl font-bold mb-3">业务模式挑战</h4>
+                                    <ul class="space-y-2 text-gray-300">
+                                        <li class="flex items-start">
+                                            <i class="fa fa-exclamation-triangle text-danger mt-1 mr-2"></i>
+                                            <span>AI助手直接推荐产品，零售商被绕开</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fa fa-exclamation-triangle text-danger mt-1 mr-2"></i>
+                                            <span>流量和用户行为数据被第三方抓取</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fa fa-exclamation-triangle text-danger mt-1 mr-2"></i>
+                                            <span>品牌差异化被弱化，被迫打价格战</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 应对策略 -->
+                        <div>
+                            <h3 class="text-2xl font-bold text-primary mb-6 flex items-center">
+                                <i class="fa fa-lightbulb-o mr-3"></i>
+                                应对策略
+                            </h3>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-xl font-bold mb-4">技术实施策略</h4>
+                                    <ul class="space-y-2 text-gray-300">
+                                        <li class="flex items-start">
+                                            <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                            <span>小步快跑验证AI价值，优先解决核心业务问题</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                            <span>建立人机协同机制，在关键节点设置人工审核</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                            <span>构建自适应数据清洗框架，平衡数据覆盖度与质量</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-xl font-bold mb-4">数据安全策略</h4>
+                                    <ul class="space-y-2 text-gray-300">
+                                        <li class="flex items-start">
+                                            <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                            <span>建立严格的数据采集和使用规范</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                            <span>实施数据脱敏和加密技术</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                            <span>建立用户可控的个性化推荐机制</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 高管影响模态框 -->
+    <div id="executiveModal" class="fixed inset-0 z-50 hidden modal-backdrop">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-dark border border-gray-700 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="p-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-3xl font-bold gradient-text">AI对超市高管的影响</h2>
+                        <button onclick="closeModal('executiveModal')" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-times text-2xl"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-8">
+                        <!-- 积极影响 -->
+                        <div>
+                            <h3 class="text-2xl font-bold text-success mb-6 flex items-center">
+                                <i class="fa fa-arrow-up mr-3"></i>
+                                积极影响
+                            </h3>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <div class="w-16 h-16 bg-success/10 rounded-xl flex items-center justify-center mb-4">
+                                        <i class="fa fa-clock-o text-success text-2xl"></i>
+                                    </div>
+                                    <h4 class="text-xl font-bold mb-3">时间效率大幅提升</h4>
+                                    <p class="text-gray-300">
+                                        原先需要5个步骤、耗时1小时的工作，现在被简化为1个步骤，在5分钟内就能完成
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <div class="w-16 h-16 bg-success/10 rounded-xl flex items-center justify-center mb-4">
+                                        <i class="fa fa-lightbulb-o text-success text-2xl"></i>
+                                    </div>
+                                    <h4 class="text-xl font-bold mb-3">决策质量显著改善</h4>
+                                    <p class="text-gray-300">
+                                        基于大数据的科学决策，避免主观判断带来的偏差，提升决策准确性和说服力
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <div class="w-16 h-16 bg-success/10 rounded-xl flex items-center justify-center mb-4">
+                                        <i class="fa fa-eye text-success text-2xl"></i>
+                                    </div>
+                                    <h4 class="text-xl font-bold mb-3">业务洞察力增强</h4>
+                                    <p class="text-gray-300">
+                                        AI提供"第二视角"，发现人工难以察觉的业务规律和潜在机会
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 消极影响 -->
+                        <div>
+                            <h3 class="text-2xl font-bold text-danger mb-6 flex items-center">
+                                <i class="fa fa-arrow-down mr-3"></i>
+                                消极影响
+                            </h3>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <div class="w-16 h-16 bg-danger/10 rounded-xl flex items-center justify-center mb-4">
+                                        <i class="fa fa-graduation-cap text-danger text-2xl"></i>
+                                    </div>
+                                    <h4 class="text-xl font-bold mb-3">技能要求大幅提升</h4>
+                                    <p class="text-gray-300">
+                                        需要学习AI工具和数据分析思维，掌握新的技术语言和协作方式
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <div class="w-16 h-16 bg-danger/10 rounded-xl flex items-center justify-center mb-4">
+                                        <i class="fa fa-exchange text-danger text-2xl"></i>
+                                    </div>
+                                    <h4 class="text-xl font-bold mb-3">角色定位发生转变</h4>
+                                    <p class="text-gray-300">
+                                        从决策者变为AI的监督者和合作者，需要重新定义自身价值和工作重点
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <div class="w-16 h-16 bg-danger/10 rounded-xl flex items-center justify-center mb-4">
+                                        <i class="fa fa-users text-danger text-2xl"></i>
+                                    </div>
+                                    <h4 class="text-xl font-bold mb-3">团队管理挑战增加</h4>
+                                    <p class="text-gray-300">
+                                        不同年龄段员工对AI的接受度不同，需要平衡技术应用与团队文化
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 应对策略 -->
+                        <div>
+                            <h3 class="text-2xl font-bold text-primary mb-6 flex items-center">
+                                <i class="fa fa-lightbulb-o mr-3"></i>
+                                应对策略
+                            </h3>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-xl font-bold mb-4">技能提升策略</h4>
+                                    <ul class="space-y-2 text-gray-300">
+                                        <li class="flex items-start">
+                                            <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                            <span>主动学习AI工具和数据分析思维</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                            <span>参与业务创新讨论，用AI数据提升决策说服力</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                            <span>拓展跨界能力，与IT、数据团队加强沟通</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-xl font-bold mb-4">角色转型策略</h4>
+                                    <ul class="space-y-2 text-gray-300">
+                                        <li class="flex items-start">
+                                            <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                            <span>从决策者转变为AI的监督者和合作者</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                            <span>专注于AI无法替代的软实力：团队管理、客户关系、行业洞察</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fa fa-check text-primary mt-1 mr-2"></i>
+                                            <span>建立"数据质疑委员会"，定期挑战AI决策假设</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 工作时间分配变化 -->
+                        <div>
+                            <h3 class="text-2xl font-bold text-secondary mb-6 flex items-center">
+                                <i class="fa fa-pie-chart mr-3"></i>
+                                工作时间分配变化
+                            </h3>
+                            
+                            <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                <canvas id="executiveTimeChart" width="400" height="300"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 技术详情模态框 -->
+    <div id="techModal" class="fixed inset-0 z-50 hidden modal-backdrop">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-dark border border-gray-700 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="p-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-3xl font-bold gradient-text">智能超市技术架构</h2>
+                        <button onclick="closeModal('techModal')" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-times text-2xl"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <img src="https://aka.doubaocdn.com/s/V3VU1vz3La" alt="未来科技感超市" class="w-full h-64 object-cover rounded-xl">
+                        
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4">核心技术组成</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-primary">计算机视觉系统</h4>
+                                    <p class="text-gray-300">
+                                        通过摄像头和深度学习算法，实现商品识别、顾客行为分析、异常检测等功能，为超市提供全方位的视觉感知能力。
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-secondary">物联网传感器网络</h4>
+                                    <p class="text-gray-300">
+                                        部署在货架、收银台、仓库等位置的传感器，实时采集库存、温度、湿度等数据，为AI决策提供基础数据支撑。
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-success">大数据分析平台</h4>
+                                    <p class="text-gray-300">
+                                        处理和分析海量的销售数据、顾客行为数据、库存数据等，挖掘有价值的商业洞察，支持智能决策。
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-accent">智能推荐系统</h4>
+                                    <p class="text-gray-300">
+                                        基于用户画像和行为分析，为顾客提供个性化的商品推荐和促销信息，提升购物体验和销售业绩。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 收银系统模态框 -->
+    <div id="checkoutModal" class="fixed inset-0 z-50 hidden modal-backdrop">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-dark border border-gray-700 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="p-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-3xl font-bold gradient-text">AI智能收银系统</h2>
+                        <button onclick="closeModal('checkoutModal')" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-times text-2xl"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <img src="https://aka.doubaocdn.com/s/OcpU1vz3Li" alt="AI智能收银系统" class="w-full h-64 object-cover rounded-xl">
+                        
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4">系统特点</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-primary">商品自动识别</h4>
+                                    <p class="text-gray-300">
+                                        采用先进的计算机视觉技术，能够快速准确地识别各种商品，支持多种商品同时识别，提高收银效率。
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-secondary">多种支付方式</h4>
+                                    <p class="text-gray-300">
+                                        支持微信支付、支付宝、现金等多种支付方式，满足不同顾客的支付习惯，提供便捷的支付体验。
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-success">防损功能集成</h4>
+                                    <p class="text-gray-300">
+                                        内置防损算法，能够识别异常行为，减少盗窃损失，同时误判率极低，不影响正常顾客的购物体验。
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-accent">数据分析能力</h4>
+                                    <p class="text-gray-300">
+                                        实时收集销售数据，为超市管理层提供详细的销售分析报告，支持业务决策和库存优化。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4">实施效果</h3>
+                            <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    <div class="text-center">
+                                        <div class="text-3xl font-bold text-primary mb-2">40%</div>
+                                        <div class="text-gray-300">收银效率提升</div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="text-3xl font-bold text-success mb-2">30%</div>
+                                        <div class="text-gray-300">人力成本节省</div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="text-3xl font-bold text-accent mb-2">95%</div>
+                                        <div class="text-gray-300">识别准确率</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 数据分析模态框 -->
+    <div id="dataModal" class="fixed inset-0 z-50 hidden modal-backdrop">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-dark border border-gray-700 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="p-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-3xl font-bold gradient-text">AI数据分析平台</h2>
+                        <button onclick="closeModal('dataModal')" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-times text-2xl"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <img src="https://aka.doubaocdn.com/s/IU9v1vz3Lb" alt="AI数据分析" class="w-full h-64 object-cover rounded-xl">
+                        
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4">核心功能</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-primary">实时销售监控</h4>
+                                    <p class="text-gray-300">
+                                        实时显示销售数据、客流情况、热门商品等关键指标，让管理层随时掌握超市运营状况。
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-secondary">库存智能预测</h4>
+                                    <p class="text-gray-300">
+                                        基于历史数据和机器学习算法，预测未来需求，自动生成补货建议，优化库存管理。
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-success">顾客行为分析</h4>
+                                    <p class="text-gray-300">
+                                        分析顾客购物路径、停留时间、购买偏好等数据，为商品陈列和营销策略提供依据。
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-accent">绩效评估报告</h4>
+                                    <p class="text-gray-300">
+                                        自动生成各类绩效报告，包括销售业绩、员工表现、顾客满意度等，支持管理层决策。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4">技术优势</h3>
+                            <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                <ul class="space-y-3 text-gray-300">
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+                                        <span>支持多维度数据分析，提供深度商业洞察</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+                                        <span>自动化报告生成，节省管理层时间</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+                                        <span>可定制化的仪表板，满足不同管理层需求</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+                                        <span>实时数据更新，确保决策的时效性</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 智能货架模态框 -->
+    <div id="shelfModal" class="fixed inset-0 z-50 hidden modal-backdrop">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-dark border border-gray-700 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="p-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-3xl font-bold gradient-text">智能货架系统</h2>
+                        <button onclick="closeModal('shelfModal')" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-times text-2xl"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <img src="https://aka.doubaocdn.com/s/2SEf1vz3Li" alt="智能货架系统" class="w-full h-64 object-cover rounded-xl">
+                        
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4">系统组成</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-primary">电子价签</h4>
+                                    <p class="text-gray-300">
+                                        数字显示的价格标签，支持远程更新价格，实现促销活动的快速部署，同时显示商品详细信息。
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-secondary">重量传感器</h4>
+                                    <p class="text-gray-300">
+                                        安装在货架上的重量传感器，实时监测商品库存情况，自动触发补货提醒。
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-success">摄像头监控</h4>
+                                    <p class="text-gray-300">
+                                        小型摄像头用于监控商品陈列情况，识别空货架和商品摆放错误，确保货架整洁有序。
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-accent">交互显示屏</h4>
+                                    <p class="text-gray-300">
+                                        安装在货架端的小型显示屏，提供商品推荐、营养信息、促销活动等交互功能。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4">实施效果</h3>
+                            <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    <div class="text-center">
+                                        <div class="text-3xl font-bold text-primary mb-2">18%</div>
+                                        <div class="text-gray-300">缺货率降低</div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="text-3xl font-bold text-success mb-2">25%</div>
+                                        <div class="text-gray-300">补货效率提升</div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="text-3xl font-bold text-accent mb-2">30%</div>
+                                        <div class="text-gray-300">顾客满意度提升</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 安防系统模态框 -->
+    <div id="securityModal" class="fixed inset-0 z-50 hidden modal-backdrop">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-dark border border-gray-700 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="p-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-3xl font-bold gradient-text">AI防损监控系统</h2>
+                        <button onclick="closeModal('securityModal')" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-times text-2xl"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <img src="https://aka.doubaocdn.com/s/4tWs1vz3Li" alt="AI防损监控系统" class="w-full h-64 object-cover rounded-xl">
+                        
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4">核心功能</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-primary">异常行为识别</h4>
+                                    <p class="text-gray-300">
+                                        通过深度学习算法识别可疑行为，如商品藏匿、未结账离开等，实时发出警报。
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-secondary">自助收银监控</h4>
+                                    <p class="text-gray-300">
+                                        监控自助收银区域，识别漏扫、多扫等异常情况，减少收银环节的损失。
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-success">客流分析</h4>
+                                    <p class="text-gray-300">
+                                        分析顾客流动路径和停留时间，为商品陈列和促销策略提供数据支持。
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-accent">视频检索功能</h4>
+                                    <p class="text-gray-300">
+                                        支持按时间、地点、事件类型等条件快速检索视频，提高调查效率。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4">技术优势</h3>
+                            <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                <ul class="space-y-3 text-gray-300">
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+                                        <span>盗损率从8.3%降至0.4%，效果显著</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+                                        <span>事前预防代替事后追溯，防患于未然</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+                                        <span>误判率极低，不影响正常顾客购物体验</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+                                        <span>支持多摄像头联动监控，无死角覆盖</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 未来购物模态框 -->
+    <div id="futureModal" class="fixed inset-0 z-50 hidden modal-backdrop">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-dark border border-gray-700 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="p-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-3xl font-bold gradient-text">未来购物体验</h2>
+                        <button onclick="closeModal('futureModal')" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-times text-2xl"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <img src="https://aka.doubaocdn.com/s/lZtz1vz3Lj" alt="未来购物体验" class="w-full h-64 object-cover rounded-xl">
+                        
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4">创新购物方式</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-primary">AR智能导航</h4>
+                                    <p class="text-gray-300">
+                                        通过增强现实技术，为顾客提供超市内的精准导航，帮助快速找到所需商品。
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-secondary">智能购物车</h4>
+                                    <p class="text-gray-300">
+                                        配备传感器和显示屏的智能购物车，自动识别商品、计算总价、提供个性化推荐。
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-success">无人结账系统</h4>
+                                    <p class="text-gray-300">
+                                        无需排队结账，通过计算机视觉和RFID技术，实现商品自动识别和支付。
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-accent">个性化推荐</h4>
+                                    <p class="text-gray-300">
+                                        基于顾客历史购买记录和实时行为，提供个性化的商品推荐和优惠信息。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4">发展趋势</h3>
+                            <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                <ul class="space-y-3 text-gray-300">
+                                    <li class="flex items-start">
+                                        <i class="fa fa-arrow-right text-primary mt-1 mr-2"></i>
+                                        <span>更加智能化的购物体验，减少人工干预</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-arrow-right text-primary mt-1 mr-2"></i>
+                                        <span>无缝融合线上线下购物渠道</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-arrow-right text-primary mt-1 mr-2"></i>
+                                        <span>更加注重顾客隐私和数据安全保护</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-arrow-right text-primary mt-1 mr-2"></i>
+                                        <span>可持续发展理念融入购物体验</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 沃尔玛案例模态框 -->
+    <div id="walmartModal" class="fixed inset-0 z-50 hidden modal-backdrop">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-dark border border-gray-700 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="p-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-3xl font-bold gradient-text">沃尔玛×谷歌Gemini案例</h2>
+                        <button onclick="closeModal('walmartModal')" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-times text-2xl"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                            <h3 class="text-2xl font-bold mb-4">合作背景</h3>
+                            <p class="text-gray-300 mb-4">
+                                2026年1月，零售巨头沃尔玛与谷歌母公司Alphabet达成重磅合作，在Gemini大模型平台正式推出AI购物助手。
+                            </p>
+                            <p class="text-gray-300">
+                                这一合作标志着零售业与人工智能技术深度融合的重要里程碑，旨在为顾客提供更加智能化、个性化的购物体验。
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4">核心功能</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-primary">自然语言搜索</h4>
+                                    <p class="text-gray-300">
+                                        支持自然语言查询，顾客可以用日常语言描述需求，AI助手能够理解并提供准确的商品推荐。
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-secondary">图片识别搜索</h4>
+                                    <p class="text-gray-300">
+                                        支持图片搜索功能，顾客可以上传商品图片，AI助手能够识别并找到相似商品。
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-success">个性化推荐</h4>
+                                    <p class="text-gray-300">
+                                        基于顾客购物历史和偏好，提供个性化的商品推荐和优惠信息，提升购物体验。
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-accent">一站式交易闭环</h4>
+                                    <p class="text-gray-300">
+                                        支持从商品搜索到购买的全流程服务，实现真正的一站式购物体验。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4">实施效果</h3>
+                            <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    <div class="text-center">
+                                        <div class="text-3xl font-bold text-primary mb-2">首批覆盖</div>
+                                        <div class="text-gray-300">美国市场</div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="text-3xl font-bold text-success mb-2">全品类</div>
+                                        <div class="text-gray-300">商品覆盖</div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="text-3xl font-bold text-accent mb-2">山姆会员店</div>
+                                        <div class="text-gray-300">同步支持</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Galbot Shop案例模态框 -->
+    <div id="galbotModal" class="fixed inset-0 z-50 hidden modal-backdrop">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-dark border border-gray-700 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="p-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-3xl font-bold gradient-text">上海浦东Galbot Shop案例</h2>
+                        <button onclick="closeModal('galbotModal')" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-times text-2xl"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                            <h3 class="text-2xl font-bold mb-4">项目背景</h3>
+                            <p class="text-gray-300 mb-4">
+                                上海近日迎来一家由具身人工智能驱动的全自主机器人零售店"Galbot Shop"。该店位于浦东陆家嘴商圈，是国内领先的全自主零售实验项目。
+                            </p>
+                            <p class="text-gray-300">
+                                这家店展示了具身人工智能在零售行业的实际应用，为未来无人零售模式探索了新的可能性。
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4">核心技术</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-primary">具身智能机器人</h4>
+                                    <p class="text-gray-300">
+                                        店内机器人"小Gal"可独立完成商品推荐、取货、结账与交付全流程，具备自主导航和避障能力。
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-secondary">24小时无人运营</h4>
+                                    <p class="text-gray-300">
+                                        支持全天候无人运营，机器人具备自主充电能力，确保店铺持续服务。
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-success">智能库存管理</h4>
+                                    <p class="text-gray-300">
+                                        实时监控库存情况，自动补货提醒，确保商品供应充足。
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-accent">顾客交互系统</h4>
+                                    <p class="text-gray-300">
+                                        支持语音交互和触摸屏操作，为顾客提供友好的购物体验。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4">项目数据</h3>
+                            <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    <div class="text-center">
+                                        <div class="text-3xl font-bold text-primary mb-2">10平米</div>
+                                        <div class="text-gray-300">店铺面积</div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="text-3xl font-bold text-success mb-2">300种</div>
+                                        <div class="text-gray-300">商品数量</div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="text-3xl font-bold text-accent mb-2">2000人次</div>
+                                        <div class="text-gray-300">日接待量</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 新加坡超市案例模态框 -->
+    <div id="singaporeModal" class="fixed inset-0 z-50 hidden modal-backdrop">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-dark border border-gray-700 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="p-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-3xl font-bold gradient-text">新加坡榜鹅智能超市案例</h2>
+                        <button onclick="closeModal('singaporeModal')" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-times text-2xl"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                            <h3 class="text-2xl font-bold mb-4">项目背景</h3>
+                            <p class="text-gray-300 mb-4">
+                                新加坡最先进的超市现身榜鹅，这家超市引入了多项智能技术，包括智能购物车、自动识别系统等，开启了零售新纪元。
+                            </p>
+                            <p class="text-gray-300">
+                                该超市是新加坡智慧零售的重要试点项目，旨在为顾客提供更加便捷、智能的购物体验。
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4">核心功能</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-primary">实时导航找货</h4>
+                                    <p class="text-gray-300">
+                                        只需输入商品名称，智能购物车将直接引导顾客至目标货架，告别寻找烦恼。
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-secondary">个性化推荐</h4>
+                                    <p class="text-gray-300">
+                                        系统基于购物偏好为顾客推荐优惠商品，还可进行AI健康评估，匹配适合的保健品或葡萄酒。
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-success">自动识别优惠</h4>
+                                    <p class="text-gray-300">
+                                        系统自动为乐龄人士、建国一代、立国一代及CHAS卡持有人提供专属折扣，无需手动操作。
+                                    </p>
+                                </div>
+                                
+                                <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                    <h4 class="text-lg font-bold mb-3 text-accent">无缝线上融合</h4>
+                                    <p class="text-gray-300">
+                                        支持线上线下购物无缝衔接，顾客可以在店内查询线上库存，享受线上下单、店内取货服务。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4">创新特色</h3>
+                            <div class="bg-dark/50 border border-gray-700 rounded-xl p-6">
+                                <ul class="space-y-3 text-gray-300">
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+                                        <span>以顾客为中心的设计理念，提升购物体验</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+                                        <span>注重社会责任，为特殊群体提供专属服务</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+                                        <span>技术与服务的完美融合，体现人性化关怀</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+        });
+
+        // 移动端菜单切换
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 平滑滚动到指定区域
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // 滚动动画
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section-reveal').forEach(section => {
+            observer.observe(section);
+        });
+
+        // 模态框控制
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            
+            // 添加淡入动画
+            setTimeout(() => {
+                modal.querySelector('.modal-content').classList.add('opacity-100');
+            }, 10);
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // 点击模态框背景关闭
+        document.querySelectorAll('.modal-backdrop').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    const modalId = this.id;
+                    closeModal(modalId);
+                }
+            });
+        });
+
+        // ESC键关闭模态框
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-backdrop:not(.hidden)').forEach(modal => {
+                    closeModal(modal.id);
+                });
+            }
+        });
+
+        // 初始化图表
+        document.addEventListener('DOMContentLoaded', function() {
+            // AI应用渗透率图表
+            const penetrationCtx = document.getElementById('penetrationChart').getContext('2d');
+            new Chart(penetrationCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['智能收银', 'AI防损', '库存管理', '个性化营销', '其他'],
+                    datasets: [{
+                        data: [75, 60, 55, 40, 25],
+                        backgroundColor: [
+                            '#00D2FF',
+                            '#3A0CA3',
+                            '#4CC9F0',
+                            '#F72585',
+                            '#8B5CF6'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#D1D5DB',
+                                padding: 20,
+                                usePointStyle: true
+                            }
+                        }
+                    }
+                }
+            });
+
+            // 高管工作时间分配变化图表
+            const executiveTimeCtx = document.getElementById('executiveTimeChart').getContext('2d');
+            new Chart(executiveTimeCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['重复性工作', '数据分析', '战略规划', '团队管理', '创新思考'],
+                    datasets: [{
+                        label: 'AI应用前',
+                        data: [40, 20, 15, 15, 10],
+                        backgroundColor: '#374151'
+                    }, {
+                        label: 'AI应用后',
+                        data: [10, 30, 25, 20, 15],
+                        backgroundColor: '#00D2FF'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                color: '#D1D5DB'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 50,
+                            title: {
+                                display: true,
+                                text: '时间占比 (%)',
+                                color: '#D1D5DB'
+                            },
+                            ticks: {
+                                color: '#9CA3AF'
+                            },
+                            grid: {
+                                color: '#374151'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#9CA3AF'
+                            },
+                            grid: {
+                                color: '#374151'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+
+        // 平滑滚动到指定区域的链接处理
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                scrollToSection(targetId);
+                
+                // 关闭移动端菜单
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
