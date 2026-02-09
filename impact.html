@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI超市 - 行业影响</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1E293B;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #1E40AF 0%, #3B82F6 50%, #06B6D4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #94A3B8;
+            margin-bottom: 40px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 40px;
+            color: #3B82F6;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .impact-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .impact-card:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .impact-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #3B82F6;
+            text-align: center;
+        }
+
+        .impact-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .impact-description {
+            font-size: 1rem;
+            color: #94A3B8;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .impact-features {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        .impact-features li {
+            padding-left: 20px;
+            margin-bottom: 10px;
+            color: #94A3B8;
+            position: relative;
+        }
+
+        .impact-features li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #06B6D4;
+            font-weight: bold;
+        }
+
+        .impact-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #06B6D4;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #94A3B8;
+            margin-top: 5px;
+        }
+
+        .decision-section {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 60px;
+        }
+
+        .decision-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .decision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .decision-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .decision-card h3 {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #3B82F6;
+        }
+
+        .decision-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .decision-card li {
+            padding-left: 20px;
+            margin-bottom: 10px;
+            color: #94A3B8;
+            position: relative;
+        }
+
+        .decision-card li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #06B6D4;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94A3B8;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← 返回首页</a>
+        
+        <header>
+            <h1>AI超市行业影响</h1>
+            <p>分析AI技术对超市行业的全方位影响和变革</p>
+        </header>
+
+        <div class="impact-grid">
+            <!-- 运营效率提升 -->
+            <div class="impact-card">
+                <div class="impact-icon">⚡</div>
+                <h2 class="impact-title">运营效率提升</h2>
+                <p class="impact-description">AI智能系统自动化库存管理、自助收银流程提升效率、智能货架自动补货、数据分析优化商品陈列</p>
+                <ul class="impact-features">
+                    <li>AI智能系统自动化库存管理</li>
+                    <li>自助收银流程提升效率</li>
+                    <li>智能货架自动补货</li>
+                    <li>数据分析优化商品陈列</li>
+                </ul>
+                <div class="impact-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">40%</div>
+                        <div class="stat-label">运营效率提升</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 损失预防优化 -->
+            <div class="impact-card">
+                <div class="impact-icon">🛡️</div>
+                <h2 class="impact-title">损失预防优化</h2>
+                <p class="impact-description">智能监控识别异常行为、自助收银异常检测、实时警报和风险预警、视频检索快速调查</p>
+                <ul class="impact-features">
+                    <li>智能监控识别异常行为</li>
+                    <li>自助收银异常检测</li>
+                    <li>实时警报和风险预警</li>
+                    <li>视频检索快速调查</li>
+                </ul>
+                <div class="impact-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">8.3%→0.4%</div>
+                        <div class="stat-label">盗损率降低</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 客户体验升级 -->
+            <div class="impact-card">
+                <div class="impact-icon">😊</div>
+                <h2 class="impact-title">客户体验升级</h2>
+                <p class="impact-description">个性化商品推荐、智能导航快速找商品、无人结账减少等待、智能购物车自动结算</p>
+                <ul class="impact-features">
+                    <li>个性化商品推荐</li>
+                    <li>智能导航快速找商品</li>
+                    <li>无人结账减少等待</li>
+                    <li>智能购物车自动结算</li>
+                </ul>
+                <div class="impact-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">31%</div>
+                        <div class="stat-label">客单价提升</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="decision-section">
+            <h2 class="decision-title">对高管决策的影响</h2>
+            <div class="decision-grid">
+                <div class="decision-card">
+                    <h3>数据驱动决策</h3>
+                    <ul>
+                        <li>实时销售数据监控和趋势分析</li>
+                        <li>智能库存预测和补货建议</li>
+                        <li>客户行为分析和个性化营销方案</li>
+                        <li>风险预警和异常行为检测</li>
+                    </ul>
+                </div>
+                <div class="decision-card">
+                    <h3>组织变革挑战</h3>
+                    <ul>
+                        <li>员工技能升级和再培训需求</li>
+                        <li>AI与人类员工的协作模式设计</li>
+                        <li>数据安全和隐私保护挑战</li>
+                        <li>AI伦理和治理体系建设</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2026 AI超市影响分析报告. 基于真实行业数据和全球前沿案例分析</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">探索AI重塑零售的无限可能</p>
+        </footer>
+    </div>
+</body>
+</html>
